@@ -39,6 +39,10 @@ if [ $? -eq 0 ]; then
     chown "$USERNAME:$USERNAME" "$USER_HOME/Projects/wtf/docs"
     echo "Created ~/Projects/wtf/docs folder for '$USERNAME'."
 
+    ln -s /shared/foxstone/ "$USER_HOME/Projects/wtf/foxstone"
+    chown -h "$USERNAME:$USERNAME" "$USER_HOME/Projects/wtf/foxstone"
+    echo "Linked /shared/foxstone for '$USERNAME'."
+
     echo "Installing nvm and Node.js for '$USERNAME'..."
     su - "$USERNAME" -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash'
     su - "$USERNAME" -c 'source ~/.nvm/nvm.sh && nvm install 22.22'
