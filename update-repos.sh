@@ -6,7 +6,8 @@ PATHS=(
     "/shared/foxstone/legacy-api"
     "/shared/what-the-fox"
 )
- 
+
+
 for path in "${PATHS[@]}"; do
     if [ -d "$path/.git" ]; then
         echo "Pulling $path..."
@@ -22,4 +23,5 @@ rsync -r --delete /shared/what-the-fox/.claude/agents/ /home/foxstone/.config/op
 rsync -r --delete /shared/what-the-fox/.claude/commands/ /home/foxstone/.config/opencode/commands/
 cp /shared/what-the-fox/CLAUDE.md /home/foxstone/.config/opencode/AGENTS.md
 
+cd /shared/foxstone/ && gcloud storage cp gs://foxstone-data/prod-db-export-for-latest/sqldumpfile-schema.gz . && gunzip -f sqldumpfile-schema.gz && mv sqldumpfile-schema schema_dump.sql
 echo "Done."
