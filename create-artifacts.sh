@@ -14,6 +14,6 @@ pkill -f "opencode run --command generate-platform-api-artifacts" 2>/dev/null
 
 opencode run --command generate-legacy-api-artifacts > "$LOG_DIR/legacy-api_$DATE_STAMP.log" 2>&1 &
 opencode run --command generate-ng-frontend-artifacts > "$LOG_DIR/ng-frontend_$DATE_STAMP.log" 2>&1 &
-opencode run --command generate-ng-frontend-artifacts > "$LOG_DIR/platform-api_$DATE_STAMP.log" 2>&1 &
+opencode run --command generate-platform-api-artifacts > "$LOG_DIR/platform-api_$DATE_STAMP.log" 2>&1 &
 
 echo "Done. Logs in $LOG_DIR"
