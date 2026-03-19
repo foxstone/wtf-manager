@@ -87,4 +87,32 @@ function generateReport() {
 }
 
 const report = generateReport();
-console.log(JSON.stringify(report, null, 2));
+
+console.log('\n╔══════════════════════════════════════════════════════════════╗');
+console.log('║              ARTIFACTS REPORT - ' + report.timestamp.split('T')[0] + '              ║');
+console.log('╚══════════════════════════════════════════════════════════════╝\n');
+
+for (const [project, data] of Object.entries(report.projects)) {
+    console.log(`\n┌─────────────────────────────────────────────────────────────────`);
+    console.log(`│ 📁 ${project.toUpperCase()}`);
+    console.log(`├─────────────────────────────────────────────────────────────────`);
+    console.log(`│ Files: ${data.fileCount}  |  Size: ${data.totalSizeFormatted}`);
+    console.log(`├─────────────────────────────────────────────────────────────────`);
+    
+    if (data.files.length > 0) {
+        for (const file of data.files) {
+            console.log(`│   • ${file.name}`);
+            console.log(`│     Size: ${file.sizeFormatted}  |  Modified: ${file.modified.split(' ')[0]}`);
+        }
+    } else {
+        console.log(`│   (no files)`);
+    }
+    console.log(`└─────────────────────────────────────────────────────────────────`);
+}
+
+console.log(`\n┌─────────────────────────────────────────────────────────────────`);
+console.log(`│ 📊 SUMMARY`);
+console.log(`├─────────────────────────────────────────────────────────────────`);
+console.log(`│ Total Files: ${report.summary.totalFiles}`);
+console.log(`│ Total Size: ${report.summary.totalSizeFormatted}`);
+console.log(`└─────────────────────────────────────────────────────────────────\n`);

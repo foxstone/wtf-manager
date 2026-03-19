@@ -7,12 +7,6 @@ cd /shared/foxstone/
 
 REPORT=$("$SCRIPT_DIR/generate-artifacts-report.js")
 
-rsync -av artifacts-temp/ codebase-knowledge/
-
-rm -rf artifacts-temp/legacy-api/*
-rm -rf artifacts-temp/ng-frontend/*
-rm -rf artifacts-temp/platform-api/*
-
 echo 'Copied artifacts.'
 
 if [ -n "$TEAMS_WEBHOOK_URL" ]; then
@@ -37,3 +31,11 @@ if [ -n "$TEAMS_WEBHOOK_URL" ]; then
     
     curl -s -X POST -H 'Content-Type: application/json' -d "$PAYLOAD" "$TEAMS_WEBHOOK_URL" > /dev/null
 fi
+
+sleep 3
+
+rsync -av artifacts-temp/ codebase-knowledge/
+
+rm -rf artifacts-temp/legacy-api/*
+rm -rf artifacts-temp/ng-frontend/*
+rm -rf artifacts-temp/platform-api/*
