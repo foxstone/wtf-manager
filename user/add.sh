@@ -45,7 +45,7 @@ if [ $? -eq 0 ]; then
 
     echo "Installing nvm and Node.js for '$USERNAME'..."
     su - "$USERNAME" -c 'curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.1/install.sh | bash'
-    su - "$USERNAME" -c 'source ~/.nvm/nvm.sh && nvm install 22.22'
+    su - "$USERNAME" -c 'source ~/.nvm/nvm.sh && nvm install 22.22.0'
     echo "Node.js setup complete for '$USERNAME'."
 
     echo "Installing openchamber for '$USERNAME'..."

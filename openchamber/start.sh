@@ -10,7 +10,7 @@ while IFS=':' read -r username port password; do
     [[ -z "$username" || -z "$port" ]] && continue
     
     node_path="/home/$username/.nvm/versions/node/v22.22.0/bin"
-    cmd="sudo -u $username env PATH=\"$node_path:\$PATH\" $node_path/openchamber --daemon --port $port"
+    cmd="sudo -u $username env PATH=\"$node_path:\$PATH\" $node_path/openchamber --port $port"
     
     if [[ -n "$password" ]]; then
         cmd="$cmd --ui-password $password"
