@@ -5,7 +5,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 cd /shared/foxstone/
 
-REPORT=$("$SCRIPT_DIR/generate-artifacts-report.js")
+REPORT=$(/home/foxstone/.nvm/versions/node/v22.22.0/bin/node "$SCRIPT_DIR/generate-artifacts-report.js")
 
 echo 'Copied artifacts.'
 
