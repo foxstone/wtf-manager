@@ -1,21 +1,43 @@
 #!/bin/bash
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 USERS_CONF="$SCRIPT_DIR/users.conf"
+TARGET_USER="${1:-}"
 
-while IFS=':' read -r username port password; do
-    username=$(echo "$username" | xargs)
-    port=$(echo "$port" | xargs)
-    password=$(echo "$password" | xargs)
-    
-    [[ -z "$username" || -z "$port" ]] && continue
-    
-    node_path="/home/$username/.nvm/versions/node/v22.22.0/bin"
-    cmd="sudo -u $username env PATH=\"$node_path:\$PATH\" $node_path/openchamber --port $port"
-    
-    if [[ -n "$password" ]]; then
-        cmd="$cmd --ui-password $password"
-    fi
-    
-    echo "Starting openchamber for $username on port $port..."
-    eval "$cmd"
-done < "$USERS_CONF"
+if [[ -n "$TARGET_USER" ]]; then
+    while IFS=':' read -r username port password; do
+        username=$(echo "$username" | xargs)
+        port=$(echo "$port" | xargs)
+        password=$(echo "$password" | xargs)
+
+        [[ "$username" != "$TARGET_USER" ]] && continue
+        [[ -z "$username" || -z "$port" ]] && continue
+
+        node_path="/home/$username/.nvm/versions/node/v22.22.0/bin"
+        cmd="sudo -u $username env PATH=\"$node_path:\$PATH\" $node_path/openchamber --port $port"
+
+        if [[ -n "$password" ]]; then
+            cmd="$cmd --ui-password $password"
+        fi
+
+        echo "Starting openchamber for $username on port $port..."
+        eval "$cmd"
+    done < "$USERS_CONF"
+else
+    while IFS=':' read -r username port password; do
+        username=$(echo "$username" | xargs)
+        port=$(echo "$port" | xargs)
+        password=$(echo "$password" | xargs)
+
+        [[ -z "$username" || -z "$port" ]] && continue
+
+        node_path="/home/$username/.nvm/versions/node/v22.22.0/bin"
+        cmd="sudo -u $username env PATH=\"$node_path:\$PATH\" $node_path/openchamber --port $port"
+
+        if [[ -n "$password" ]]; then
+            cmd="$cmd --ui-password $password"
+        fi
+
+        echo "Starting openchamber for $username on port $port..."
+        eval "$cmd"
+    done < "$USERS_CONF"
+fi
