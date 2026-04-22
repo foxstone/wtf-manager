@@ -13,7 +13,7 @@ if [[ -n "$TARGET_USER" ]]; then
         [[ -z "$username" || -z "$port" ]] && continue
 
         node_path="/home/$username/.nvm/versions/node/v22.22.0/bin"
-        cmd="sudo -u $username env PATH=\"$node_path:\$PATH\" $node_path/openchamber --port $port"
+        cmd="sudo -u $username env PATH=\"$node_path:\$PATH\" $node_path/openchamber --port $port --host 0.0.0.0"
 
         if [[ -n "$password" ]]; then
             cmd="$cmd --ui-password $password"
@@ -31,7 +31,7 @@ else
         [[ -z "$username" || -z "$port" ]] && continue
 
         node_path="/home/$username/.nvm/versions/node/v22.22.0/bin"
-        cmd="sudo -u $username env PATH=\"$node_path:\$PATH\" $node_path/openchamber --port $port"
+        cmd="sudo -u $username env PATH=\"$node_path:\$PATH\" $node_path/openchamber --port $port --host 0.0.0.0"
 
         if [[ -n "$password" ]]; then
             cmd="$cmd --ui-password $password"
